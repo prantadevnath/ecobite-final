@@ -98,3 +98,13 @@
 - [x] Verified auth flow: login endpoint working correctly, session cookie being set
 - [x] Confirmed redirect logic: users redirected to correct dashboard based on role
 - [x] All 14 tests passing (13 core + 1 auth logout)
+
+
+## Login Redirect Fix (v3.2)
+- [x] Fixed missing await on createSessionToken in signup procedure (line 114)
+- [x] Fixed missing await on createSessionToken in login procedure (line 133)
+- [x] Added debugging logs to Login page for troubleshooting
+- [x] Added setTimeout to ensure toast shows before redirect
+- [x] Verified all 14 tests pass with the fix
+- [x] Session token now properly created and set as HTTP-only cookie
+- [x] Users now properly redirected to dashboard after login

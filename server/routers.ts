@@ -111,10 +111,9 @@ export const appRouter = router({
           });
         }
 
-        const sessionToken = sdk.createSessionToken(user.openId, { expiresInMs: ONE_YEAR_MS });
+        const sessionToken = await sdk.createSessionToken(user.openId, { expiresInMs: ONE_YEAR_MS });
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.setHeader("Set-Cookie", `${COOKIE_NAME}=${sessionToken}; Path=/; ${cookieOptions.secure ? "Secure; " : ""}${cookieOptions.sameSite ? `SameSite=${cookieOptions.sameSite}; ` : ""}HttpOnly; Max-Age=${ONE_YEAR_MS / 1000}`);
-
         return {
           success: true,
           user: { id: user.id, name: user.name, email: user.email, role: user.role },
@@ -131,7 +130,7 @@ export const appRouter = router({
         if (!isValid) {
           throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
         }
-        const sessionToken = sdk.createSessionToken(user.openId, { expiresInMs: ONE_YEAR_MS });
+        const sessionToken = await sdk.createSessionToken(user.openId, { expiresInMs: ONE_YEAR_MS });
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.setHeader("Set-Cookie", `${COOKIE_NAME}=${sessionToken}; Path=/; ${cookieOptions.secure ? "Secure; " : ""}${cookieOptions.sameSite ? `SameSite=${cookieOptions.sameSite}; ` : ""}HttpOnly; Max-Age=${ONE_YEAR_MS / 1000}`);
 

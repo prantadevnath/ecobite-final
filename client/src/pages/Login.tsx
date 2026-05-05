@@ -17,14 +17,27 @@ export default function Login() {
 
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: async (data) => {
+      console.log("[Login] Success, data:", data);
       await utils.auth.me.invalidate();
       toast.success(`Welcome back, ${data.user.name ?? "friend"}!`);
       const role = data.user.role;
-      if (role === "admin") setLocation("/admin");
-      else if (role === "restaurant") setLocation("/restaurant");
-      else setLocation("/browse");
+      console.log("[Login] User role:", role);
+      // Use setTimeout to ensure the toast is shown before redirect
+      setTimeout(() => {
+        if (role === "admin") {
+          console.log("[Login] Redirecting to /admin");
+          setLocation("/admin");
+        } else if (role === "restaurant") {
+          console.log("[Login] Redirecting to /restaurant");
+          setLocation("/restaurant");
+        } else {
+          console.log("[Login] Redirecting to /browse");
+          setLocation("/browse");
+        }
+      }, 500);
     },
     onError: (err) => {
+      console.error("[Login] Error:", err);
       toast.error(err.message || "Login failed");
     },
   });
@@ -35,6 +48,7 @@ export default function Login() {
       toast.error("Please fill in all fields");
       return;
     }
+    console.log("[Login] Attempting login with email:", email);
     loginMutation.mutate({ email, password });
   };
 
@@ -106,6 +120,7 @@ export default function Login() {
                 color: "white",
                 border: "none",
               }}
+              onClick={() => console.log("[Login] Sign In button clicked")}
             >
               {loginMutation.isPending ? "Signing in…" : "Sign In"}
             </Button>
