@@ -91,3 +91,10 @@
 - [x] Test time range display and filtering
 - [x] Verify all currency changes across all pages
 - [x] All 12 backend tests passing with new implementation
+
+
+## Bug Fixes (v3.1)
+- [x] Fixed template literal syntax error in Login page welcome notification (€ → $)
+- [x] Verified auth flow: login endpoint working correctly, session cookie being set
+- [x] Confirmed redirect logic: users redirected to correct dashboard based on role
+- [x] All 14 tests passing (13 core + 1 auth logout)

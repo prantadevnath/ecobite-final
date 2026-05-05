@@ -18,7 +18,7 @@ export default function Login() {
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: async (data) => {
       await utils.auth.me.invalidate();
-      toast.success(`Welcome back, €{data.user.name ?? "friend"}!`);
+      toast.success(`Welcome back, ${data.user.name ?? "friend"}!`);
       const role = data.user.role;
       if (role === "admin") setLocation("/admin");
       else if (role === "restaurant") setLocation("/restaurant");
