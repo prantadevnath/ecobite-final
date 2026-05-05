@@ -72,7 +72,7 @@ export default function Home() {
           className="text-5xl sm:text-7xl font-bold text-foreground mb-4 leading-tight max-w-3xl"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
-          Surprise Boxes,
+          Today's Box,
           <br />
           <span style={{ color: "oklch(52% 0.14 65)" }}>Rescued Food.</span>
         </h1>

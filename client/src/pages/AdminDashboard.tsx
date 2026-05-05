@@ -170,8 +170,8 @@ export default function AdminDashboard() {
                       )}
                     </div>
                     <div className="col-span-3 hidden sm:block">
-                      <p className="text-sm text-foreground">{restaurant.ownerName ?? "—"}</p>
-                      <p className="text-xs text-muted-foreground truncate">{restaurant.ownerEmail ?? ""}</p>
+                      <p className="text-sm text-foreground">{"—"}</p>
+                      <p className="text-xs text-muted-foreground truncate">{"—"}</p>
                     </div>
                     <div className="col-span-2">
                       {restaurant.status === "pending" && (

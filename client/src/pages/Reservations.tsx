@@ -236,7 +236,7 @@ export default function Reservations() {
                           {box.title}
                         </h3>
                         <p className="text-sm font-semibold mt-0.5" style={{ color: "oklch(52% 0.14 65)" }}>
-                          ${parseFloat(box.price).toFixed(2)}
+                          €{parseFloat(box.discountedPrice).toFixed(2)}
                         </p>
                       </div>
                       <StatusBadge status={reservation.status} />

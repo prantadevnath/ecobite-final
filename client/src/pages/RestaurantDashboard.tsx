@@ -21,11 +21,14 @@ import {
 interface BoxFormData {
   title: string;
   description: string;
-  price: string;
+  normalPrice: string;
+  discountedPrice: string;
   quantityAvailable: number;
+  pickupTimeStart: string;
+  pickupTimeEnd: string;
 }
 
-const emptyForm: BoxFormData = { title: "", description: "", price: "", quantityAvailable: 1 };
+const emptyForm: BoxFormData = { title: "", description: "", normalPrice: "", discountedPrice: "", quantityAvailable: 1, pickupTimeStart: "", pickupTimeEnd: "" };
 
 export default function RestaurantDashboard() {
   const [showForm, setShowForm] = useState(false);
@@ -40,7 +43,7 @@ export default function RestaurantDashboard() {
   const createMutation = trpc.restaurant.createBox.useMutation({
     onSuccess: async () => {
       await utils.restaurant.listBoxes.invalidate();
-      toast.success("Surprise Box created!");
+      toast.success("Today's Box created!");
       setForm(emptyForm);
       setShowForm(false);
     },
@@ -67,12 +70,8 @@ export default function RestaurantDashboard() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title || !form.price) {
-      toast.error("Title and price are required");
-      return;
-    }
-    if (!/^\d+(\.\d{1,2})?$/.test(form.price)) {
-      toast.error("Price must be a valid number (e.g. 9.99)");
+    if (!form.title || !form.normalPrice || !form.discountedPrice) {
+      toast.error("Title and both prices are required");
       return;
     }
     if (editingId !== null) {
@@ -87,8 +86,11 @@ export default function RestaurantDashboard() {
     setForm({
       title: box.title,
       description: box.description ?? "",
-      price: box.price,
+      normalPrice: box.normalPrice,
+      discountedPrice: box.discountedPrice,
       quantityAvailable: box.quantityAvailable,
+      pickupTimeStart: box.pickupTimeStart ?? "",
+      pickupTimeEnd: box.pickupTimeEnd ?? "",
     });
     setShowForm(true);
   };
@@ -180,7 +182,7 @@ export default function RestaurantDashboard() {
             }}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                {editingId ? "Edit Box" : "New Surprise Box"}
+                {editingId ? "Edit Box" : "New Today's Box"}
               </h2>
               <button onClick={cancelForm} className="p-1.5 rounded-full hover:bg-muted transition-colors">
                 <X className="w-4 h-4 text-muted-foreground" />
@@ -211,12 +213,23 @@ export default function RestaurantDashboard() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="price" className="text-sm font-medium">Price ($) *</Label>
+                  <Label htmlFor="normalPrice" className="text-sm font-medium">Normal Price (€) *</Label>
                   <Input
-                    id="price"
+                    id="normalPrice"
+                    placeholder="19.99"
+                    value={form.normalPrice}
+                    onChange={(e) => setForm({ ...form, normalPrice: e.target.value })}
+                    className="bg-white/60"
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="discountedPrice" className="text-sm font-medium">Discounted Price (€) *</Label>
+                  <Input
+                    id="discountedPrice"
                     placeholder="9.99"
-                    value={form.price}
-                    onChange={(e) => setForm({ ...form, price: e.target.value })}
+                    value={form.discountedPrice}
+                    onChange={(e) => setForm({ ...form, discountedPrice: e.target.value })}
                     className="bg-white/60"
                     required
                   />
@@ -232,6 +245,26 @@ export default function RestaurantDashboard() {
                     onChange={(e) => setForm({ ...form, quantityAvailable: parseInt(e.target.value) || 0 })}
                     className="bg-white/60"
                     required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="pickupStart" className="text-sm font-medium">Pickup Start Time</Label>
+                  <Input
+                    id="pickupStart"
+                    type="time"
+                    value={form.pickupTimeStart}
+                    onChange={(e) => setForm({ ...form, pickupTimeStart: e.target.value })}
+                    className="bg-white/60"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="pickupEnd" className="text-sm font-medium">Pickup End Time</Label>
+                  <Input
+                    id="pickupEnd"
+                    type="time"
+                    value={form.pickupTimeEnd}
+                    onChange={(e) => setForm({ ...form, pickupTimeEnd: e.target.value })}
+                    className="bg-white/60"
                   />
                 </div>
               </div>
@@ -268,13 +301,13 @@ export default function RestaurantDashboard() {
               No Boxes Yet
             </h3>
             <p className="text-sm text-muted-foreground">
-              {isPending ? "Create boxes once your account is approved." : "Create your first Surprise Box to get started."}
+              {isPending ? "Create boxes once your account is approved." : "Create your first Today's Box to get started."}
             </p>
           </div>
         ) : (
           <div className="space-y-3">
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">
-              Your Boxes ({boxes.length})
+              Your Today's Boxes ({boxes.length})
             </h2>
             {boxes.map((box) => (
               <div
@@ -297,7 +330,7 @@ export default function RestaurantDashboard() {
                   )}
                   <div className="flex items-center gap-3 mt-1.5">
                     <span className="text-sm font-semibold" style={{ color: "oklch(52% 0.14 65)" }}>
-                      ${parseFloat(box.price).toFixed(2)}
+                      €{parseFloat(box.discountedPrice).toFixed(2)}
                     </span>
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
                       <Package className="w-3 h-3" />

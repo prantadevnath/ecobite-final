@@ -21,7 +21,7 @@ import { Html5Qrcode } from "html5-qrcode";
 type RedeemResult = {
   success: boolean;
   reservation: { id: number; status: string };
-  box: { title: string; price: string };
+  box: { title: string; normalPrice: string; discountedPrice: string };
   customer: { name: string | null; email: string | null };
 } | null;
 
@@ -170,7 +170,7 @@ export default function RestaurantRedeem() {
   });
 
   const handlePinChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
+    if (!/^\d*€/.test(value)) return;
     const newPin = [...pin];
     newPin[index] = value.slice(-1);
     setPin(newPin);
@@ -262,7 +262,7 @@ export default function RestaurantRedeem() {
               <div className="flex items-center gap-2">
                 <Package className="w-4 h-4" style={{ color: "oklch(52% 0.18 140)" }} />
                 <span className="font-medium text-foreground">{result.box.title}</span>
-                <span className="text-muted-foreground">— ${parseFloat(result.box.price).toFixed(2)}</span>
+                <span className="text-muted-foreground">— €{parseFloat(result.box.discountedPrice).toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" style={{ color: "oklch(52% 0.18 140)" }} />

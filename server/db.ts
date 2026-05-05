@@ -298,3 +298,21 @@ export async function getReservationsByRestaurantId(restaurantId: number) {
     .where(eq(boxes.restaurantId, restaurantId))
     .orderBy(desc(reservations.createdAt));
 }
+
+export async function decrementBoxQtyByAmount(id: number, amount: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB unavailable");
+  await db
+    .update(boxes)
+    .set({ quantityAvailable: sql`quantityAvailable - ${amount}` })
+    .where(and(eq(boxes.id, id), sql`quantityAvailable >= ${amount}`));
+}
+
+export async function incrementBoxQtyByAmount(id: number, amount: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB unavailable");
+  await db
+    .update(boxes)
+    .set({ quantityAvailable: sql`quantityAvailable + ${amount}` })
+    .where(eq(boxes.id, id));
+}

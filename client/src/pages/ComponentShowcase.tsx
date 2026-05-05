@@ -196,7 +196,7 @@ export default function ComponentsShowcase() {
   const handleDialogSubmit = () => {
     console.log("Dialog submitted with value:", dialogInput);
     sonnerToast.success("Submitted successfully", {
-      description: `Input: ${dialogInput}`,
+      description: `Input: €{dialogInput}`,
     });
     setDialogInput("");
     setDialogOpen(false);
@@ -219,7 +219,7 @@ export default function ComponentsShowcase() {
     setTimeout(() => {
       const aiResponse: Message = {
         role: "assistant",
-        content: `This is a **demo response**. In a real app, you would call a tRPC mutation here:\n\n\`\`\`typescript\nconst chatMutation = trpc.ai.chat.useMutation({\n  onSuccess: (response) => {\n    setChatMessages(prev => [...prev, {\n      role: "assistant",\n      content: response.choices[0].message.content\n    }]);\n  }\n});\n\nchatMutation.mutate({ messages: newMessages });\n\`\`\`\n\nYour message was: "${content}"`,
+        content: `This is a **demo response**. In a real app, you would call a tRPC mutation here:\n\n\`\`\`typescript\nconst chatMutation = trpc.ai.chat.useMutation({\n  onSuccess: (response) => {\n    setChatMessages(prev => [...prev, {\n      role: "assistant",\n      content: response.choices[0].message.content\n    }]);\n  }\n});\n\nchatMutation.mutate({ messages: newMessages });\n\`\`\`\n\nYour message was: "€{content}"`,
       };
       setChatMessages([...newMessages, aiResponse]);
       setIsChatLoading(false);
@@ -476,7 +476,7 @@ export default function ComponentsShowcase() {
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className={`w-full justify-start text-left font-normal ${
+                        className={`w-full justify-start text-left font-normal €{
                           !datePickerDate && "text-muted-foreground"
                         }`}
                       >
@@ -585,7 +585,7 @@ export default function ComponentsShowcase() {
                                 }}
                               >
                                 <Check
-                                  className={`mr-2 h-4 w-4 ${
+                                  className={`mr-2 h-4 w-4 €{
                                     selectedFramework === framework.value
                                       ? "opacity-100"
                                       : "opacity-0"
@@ -793,19 +793,19 @@ export default function ComponentsShowcase() {
                         <TableCell className="font-medium">INV001</TableCell>
                         <TableCell>Paid</TableCell>
                         <TableCell>Credit Card</TableCell>
-                        <TableCell className="text-right">$250.00</TableCell>
+                        <TableCell className="text-right">€250.00</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className="font-medium">INV002</TableCell>
                         <TableCell>Pending</TableCell>
                         <TableCell>PayPal</TableCell>
-                        <TableCell className="text-right">$150.00</TableCell>
+                        <TableCell className="text-right">€150.00</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className="font-medium">INV003</TableCell>
                         <TableCell>Unpaid</TableCell>
                         <TableCell>Bank Transfer</TableCell>
-                        <TableCell className="text-right">$350.00</TableCell>
+                        <TableCell className="text-right">€350.00</TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>

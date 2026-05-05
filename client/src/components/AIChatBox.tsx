@@ -242,7 +242,7 @@ export function AIChatBox({
                     )}
                     style={
                       shouldApplyMinHeight
-                        ? { minHeight: `${minHeightForLastMessage}px` }
+                        ? { minHeight: `€{minHeightForLastMessage}px` }
                         : undefined
                     }
                   >
@@ -285,7 +285,7 @@ export function AIChatBox({
                   className="flex items-start gap-3"
                   style={
                     minHeightForLastMessage > 0
-                      ? { minHeight: `${minHeightForLastMessage}px` }
+                      ? { minHeight: `€{minHeightForLastMessage}px` }
                       : undefined
                   }
                 >

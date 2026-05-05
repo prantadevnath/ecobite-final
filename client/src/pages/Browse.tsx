@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AppLayout } from "@/components/AppLayout";
 import { SacredGeometryBackground } from "@/components/SacredGeometry";
-import { ShoppingBag, Package, Store, Loader2, Leaf } from "lucide-react";
+import { ShoppingBag, Package, Store, Loader2, Leaf, Minus, Plus } from "lucide-react";
 
 export default function Browse() {
   const [, setLocation] = useLocation();
   const { data: user } = trpc.auth.me.useQuery();
   const { data: boxesData, isLoading, refetch } = trpc.boxes.listAvailable.useQuery();
   const [reservingId, setReservingId] = useState<number | null>(null);
+  const [quantities, setQuantities] = useState<Record<number, number>>({});
 
   const utils = trpc.useUtils();
 
@@ -43,7 +44,14 @@ export default function Browse() {
       toast.error("Only customers can reserve boxes");
       return;
     }
-    reserveMutation.mutate({ boxId });
+    const quantity = quantities[boxId] || 1;
+    reserveMutation.mutate({ boxId, quantity });
+  };
+
+  const getQuantity = (boxId: number) => quantities[boxId] || 1;
+
+  const setQuantity = (boxId: number, qty: number) => {
+    setQuantities((prev) => ({ ...prev, [boxId]: qty }));
   };
 
   return (
@@ -65,7 +73,7 @@ export default function Browse() {
             className="text-4xl font-bold text-foreground"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            Surprise Boxes
+            Today's Box
           </h1>
           <p className="text-muted-foreground mt-1 text-sm">
             Reserve a mystery box from local restaurants and help reduce food waste.
@@ -85,13 +93,13 @@ export default function Browse() {
           <div
             className="rounded-2xl p-12 text-center"
             style={{
-              background: "oklch(98.5% 0.012 85 / 0.8)",
-              border: "1px solid oklch(72% 0.14 75 / 0.2)",
+              background: "oklch(99% 0.002 0 / 0.8)",
+              border: "1px solid oklch(92% 0.01 140 / 0.2)",
             }}
           >
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-              style={{ background: "oklch(72% 0.14 75 / 0.12)" }}
+              style={{ background: "oklch(60% 0.16 140 / 0.12)" }}
             >
               <Package className="w-8 h-8" style={{ color: "oklch(52% 0.18 140)" }} />
             </div>
@@ -99,7 +107,7 @@ export default function Browse() {
               No Boxes Available
             </h3>
             <p className="text-sm text-muted-foreground">
-              Check back later — restaurants are preparing new surprise boxes.
+              Check back later — restaurants are preparing new boxes.
             </p>
           </div>
         )}
@@ -112,9 +120,9 @@ export default function Browse() {
                 key={box.id}
                 className="rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-0.5"
                 style={{
-                  background: "oklch(98.5% 0.012 85 / 0.92)",
-                  border: "1px solid oklch(72% 0.14 75 / 0.22)",
-                  boxShadow: "0 2px 16px oklch(72% 0.14 75 / 0.08), 0 1px 4px oklch(18% 0.06 240 / 0.06)",
+                  background: "oklch(99% 0.002 0 / 0.92)",
+                  border: "1px solid oklch(92% 0.01 140 / 0.22)",
+                  boxShadow: "0 2px 16px oklch(60% 0.16 140 / 0.08), 0 1px 4px oklch(22% 0.04 240 / 0.06)",
                 }}
               >
                 {/* Card top accent */}
@@ -127,7 +135,7 @@ export default function Browse() {
                   {/* Restaurant badge */}
                   <div className="flex items-center gap-1.5 mb-3">
                     <Store className="w-3.5 h-3.5" style={{ color: "oklch(52% 0.18 140)" }} />
-                    <span className="text-xs font-medium" style={{ color: "oklch(52% 0.14 65)" }}>
+                    <span className="text-xs font-medium" style={{ color: "oklch(52% 0.18 140)" }}>
                       {restaurant.name}
                     </span>
                   </div>
@@ -147,20 +155,63 @@ export default function Browse() {
                     </p>
                   )}
 
-                  {/* Price + Quantity row */}
-                  <div className="flex items-end justify-between mt-auto pt-3 border-t" style={{ borderColor: "oklch(72% 0.14 75 / 0.15)" }}>
-                    <div>
+                  {/* Pickup time */}
+                  {box.pickupTimeStart && box.pickupTimeEnd && (
+                    <p className="text-xs text-muted-foreground mb-3">
+                      🕐 Pickup: {box.pickupTimeStart} - {box.pickupTimeEnd}
+                    </p>
+                  )}
+
+                  {/* Pricing section */}
+                  <div className="mt-auto pt-3 border-t" style={{ borderColor: "oklch(92% 0.01 140 / 0.15)" }}>
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span
+                        className="text-xs text-muted-foreground line-through"
+                        style={{ color: "oklch(60% 0.16 140)" }}
+                      >
+                        €{parseFloat(box.normalPrice).toFixed(2)}
+                      </span>
                       <span
                         className="text-2xl font-bold"
-                        style={{ color: "oklch(52% 0.14 65)", fontFamily: "'Cormorant Garamond', serif" }}
+                        style={{ color: "oklch(52% 0.18 140)", fontFamily: "'Cormorant Garamond', serif" }}
                       >
-                        ${parseFloat(box.price).toFixed(2)}
+                        €{parseFloat(box.discountedPrice).toFixed(2)}
                       </span>
                     </div>
-                    <div className="flex items-center gap-1">
+
+                    {/* Quantity selector */}
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs text-muted-foreground">Quantity</span>
+                      <div className="flex items-center gap-2 bg-muted rounded-lg px-2 py-1">
+                        <button
+                          onClick={() => setQuantity(box.id, Math.max(1, getQuantity(box.id) - 1))}
+                          className="p-1 hover:text-foreground transition-colors"
+                          style={{ color: "oklch(52% 0.18 140)" }}
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="w-6 text-center text-sm font-medium">{getQuantity(box.id)}</span>
+                        <button
+                          onClick={() =>
+                            setQuantity(
+                              box.id,
+                              Math.min(box.quantityAvailable, getQuantity(box.id) + 1)
+                            )
+                          }
+                          className="p-1 hover:text-foreground transition-colors"
+                          style={{ color: "oklch(52% 0.18 140)" }}
+                          disabled={getQuantity(box.id) >= box.quantityAvailable}
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Stock info */}
+                    <div className="flex items-center gap-1 mb-3">
                       <Package className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-xs text-muted-foreground">
-                        {box.quantityAvailable} left
+                        {box.quantityAvailable} available
                       </span>
                     </div>
                   </div>
@@ -190,7 +241,7 @@ export default function Browse() {
                     ) : (
                       <span className="flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4" />
-                        Reserve Box
+                        Reserve {getQuantity(box.id) > 1 ? `${getQuantity(box.id)} Boxes` : "Box"}
                       </span>
                     )}
                   </Button>

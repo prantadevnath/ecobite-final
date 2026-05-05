@@ -23,6 +23,8 @@ vi.mock("./db", () => ({
   getAvailableBoxes: vi.fn(),
   decrementBoxQty: vi.fn(),
   incrementBoxQty: vi.fn(),
+  decrementBoxQtyByAmount: vi.fn(),
+  incrementBoxQtyByAmount: vi.fn(),
   createReservation: vi.fn(),
   getReservationsByCustomerId: vi.fn(),
   getReservationById: vi.fn(),
@@ -55,7 +57,7 @@ vi.mock("nanoid", () => ({
 // ─── Mock sdk ─────────────────────────────────────────────────────────────────
 vi.mock("./_core/sdk", () => ({
   sdk: {
-    createSessionToken: vi.fn().mockResolvedValue("mock_session_token"),
+    createSessionToken: vi.fn().mockReturnValue("mock_session_token"),
   },
 }));
 
@@ -92,6 +94,7 @@ function createPublicCtx(): TrpcContext {
     res: {
       cookie: vi.fn(),
       clearCookie: vi.fn(),
+      setHeader: vi.fn(),
     } as unknown as TrpcContext["res"],
   };
 }
@@ -111,7 +114,7 @@ function createCustomerCtx(): TrpcContext {
       passwordHash: "hashed",
     },
     req: { protocol: "https", headers: {} } as TrpcContext["req"],
-    res: { cookie: vi.fn(), clearCookie: vi.fn() } as unknown as TrpcContext["res"],
+    res: { cookie: vi.fn(), clearCookie: vi.fn(), setHeader: vi.fn() } as unknown as TrpcContext["res"],
   };
 }
 
@@ -183,11 +186,10 @@ describe("auth.signup", () => {
 
     expect(result.success).toBe(true);
     expect(result.user.role).toBe("customer");
-    expect(ctx.res.cookie).toHaveBeenCalledWith(
-      "app_session_id",
-      "mock_session_token",
-      expect.objectContaining({ httpOnly: true })
-    );
+    expect(ctx.res.setHeader).toHaveBeenCalled();
+    const calls = (ctx.res.setHeader as any).mock.calls;
+    expect(calls[0]?.[0]).toBe("Set-Cookie");
+    expect(calls[0]?.[1]).toContain("app_session_id=mock_session_token");
   });
 
   it("throws CONFLICT if email already exists", async () => {
@@ -233,6 +235,10 @@ describe("auth.login", () => {
 
     expect(result.success).toBe(true);
     expect(result.user.email).toBe("user@test.com");
+    expect(ctx.res.setHeader).toHaveBeenCalled();
+    const calls = (ctx.res.setHeader as any).mock.calls;
+    expect(calls[0]?.[0]).toBe("Set-Cookie");
+    expect(calls[0]?.[1]).toContain("app_session_id=mock_session_token");
   });
 
   it("throws UNAUTHORIZED for wrong password", async () => {
@@ -255,7 +261,7 @@ describe("auth.login", () => {
     const caller = appRouter.createCaller(ctx);
     await expect(
       caller.auth.login({ email: "user@test.com", password: "wrong" })
-    ).rejects.toThrow("Invalid email or password");
+    ).rejects.toThrow("Invalid credentials");
   });
 });
 
@@ -300,16 +306,44 @@ describe("reservations.create", () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        box: { id: 10, restaurantId: 1, title: "Mystery Box", description: null, price: "9.99", quantityAvailable: 2, isActive: true, createdAt: new Date(), updatedAt: new Date() },
+        box: { id: 10, restaurantId: 1, title: "Mystery Box", description: null, normalPrice: "19.99", discountedPrice: "9.99", quantityAvailable: 2, pickupTimeStart: null, pickupTimeEnd: null, isActive: true, createdAt: new Date(), updatedAt: new Date() },
         restaurant: { id: 1, userId: 2, name: "Test Restaurant", description: null, status: "approved", createdAt: new Date(), updatedAt: new Date() },
       },
     ]);
 
     const caller = appRouter.createCaller(ctx);
-    const result = await caller.reservations.create({ boxId: 10 });
+    const result = await caller.reservations.create({ boxId: 10, quantity: 1 });
 
     expect(result.success).toBe(true);
-    expect(db.decrementBoxQty).toHaveBeenCalledWith(10);
+    expect(db.decrementBoxQtyByAmount).toHaveBeenCalledWith(10, 1);
+    expect(db.createReservation).toHaveBeenCalled();
+    expect(result.pin).toHaveLength(6);
+  });
+
+  it("reserves multiple boxes and decrements by quantity", async () => {
+    const ctx = createCustomerCtx();
+    vi.mocked(db.getBoxById).mockResolvedValue({
+      id: 10,
+      restaurantId: 1,
+      title: "Mystery Box",
+      description: null,
+      normalPrice: "19.99",
+      discountedPrice: "9.99",
+      quantityAvailable: 5,
+      pickupTimeStart: null,
+      pickupTimeEnd: null,
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    vi.mocked(db.decrementBoxQtyByAmount).mockResolvedValue(undefined);
+    vi.mocked(db.createReservation).mockResolvedValue({} as never);
+
+    const caller = appRouter.createCaller(ctx);
+    const result = await caller.reservations.create({ boxId: 10, quantity: 3 });
+
+    expect(result.success).toBe(true);
+    expect(db.decrementBoxQtyByAmount).toHaveBeenCalledWith(10, 3);
     expect(db.createReservation).toHaveBeenCalled();
     expect(result.pin).toHaveLength(6);
   });
@@ -321,15 +355,39 @@ describe("reservations.create", () => {
       restaurantId: 1,
       title: "Mystery Box",
       description: null,
-      price: "9.99",
+      normalPrice: "19.99",
+      discountedPrice: "9.99",
       quantityAvailable: 0,
+      pickupTimeStart: null,
+      pickupTimeEnd: null,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     const caller = appRouter.createCaller(ctx);
-    await expect(caller.reservations.create({ boxId: 10 })).rejects.toThrow("No boxes available");
+    await expect(caller.reservations.create({ boxId: 10, quantity: 1 })).rejects.toThrow("Only 0 boxes available");
+  });
+
+  it("throws BAD_REQUEST when requesting more boxes than available", async () => {
+    const ctx = createCustomerCtx();
+    vi.mocked(db.getBoxById).mockResolvedValue({
+      id: 10,
+      restaurantId: 1,
+      title: "Mystery Box",
+      description: null,
+      normalPrice: "19.99",
+      discountedPrice: "9.99",
+      quantityAvailable: 2,
+      pickupTimeStart: null,
+      pickupTimeEnd: null,
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const caller = appRouter.createCaller(ctx);
+    await expect(caller.reservations.create({ boxId: 10, quantity: 5 })).rejects.toThrow("Only 2 boxes available");
   });
 });
 
@@ -340,6 +398,7 @@ describe("reservations.cancel", () => {
       id: 1,
       customerId: 1, // matches ctx.user.id
       boxId: 10,
+      quantity: 1,
       status: "active",
       pin: "123456",
       qrToken: "token123",
@@ -347,14 +406,14 @@ describe("reservations.cancel", () => {
       updatedAt: new Date(),
     });
     vi.mocked(db.updateReservationStatus).mockResolvedValue(undefined);
-    vi.mocked(db.incrementBoxQty).mockResolvedValue(undefined);
+    vi.mocked(db.incrementBoxQtyByAmount).mockResolvedValue(undefined);
 
     const caller = appRouter.createCaller(ctx);
     const result = await caller.reservations.cancel({ reservationId: 1 });
 
     expect(result.success).toBe(true);
     expect(db.updateReservationStatus).toHaveBeenCalledWith(1, "cancelled");
-    expect(db.incrementBoxQty).toHaveBeenCalledWith(10);
+    expect(db.incrementBoxQtyByAmount).toHaveBeenCalledWith(10, 1);
   });
 
   it("throws FORBIDDEN when cancelling another user's reservation", async () => {
@@ -363,6 +422,7 @@ describe("reservations.cancel", () => {
       id: 2,
       customerId: 999, // different user
       boxId: 10,
+      quantity: 1,
       status: "active",
       pin: "654321",
       qrToken: "token456",
@@ -371,7 +431,7 @@ describe("reservations.cancel", () => {
     });
 
     const caller = appRouter.createCaller(ctx);
-    await expect(caller.reservations.cancel({ reservationId: 2 })).rejects.toThrow();
+    await expect(caller.reservations.cancel({ reservationId: 2 })).rejects.toThrow("FORBIDDEN");
   });
 });
 

@@ -72,3 +72,22 @@
 - [x] Verify 100% consistency across all pages
 - [x] All 12 tests passing with new theme
 - [x] Zero old gold color references remaining
+
+
+## Business Model Improvements (v3.0)
+- [x] Update boxes table schema: add pickupTimeStart, pickupTimeEnd, normalPrice, discountedPrice
+- [x] Generate and apply database migration for new fields
+- [x] Update backend: create/update box procedures to handle new fields
+- [x] Update backend: reserve box to accept quantity parameter and decrement by quantity
+- [x] Rename all "Surprise Boxes" to "Today's Box" in UI
+- [x] Add quantity selector to Browse page box cards
+- [x] Add quantity selector to customer reservation flow
+- [x] Update restaurant "Add Box" form with time range inputs
+- [x] Update restaurant "Add Box" form with normal and discounted price fields
+- [x] Display discounted price prominently with crossed-out normal price on browse cards
+- [x] Replace all $ currency symbols with € throughout the app
+- [x] Update admin dashboard to show new pricing fields
+- [x] Test quantity-based reservations and stock decrement
+- [x] Test time range display and filtering
+- [x] Verify all currency changes across all pages
+- [x] All 12 backend tests passing with new implementation

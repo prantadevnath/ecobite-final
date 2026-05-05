@@ -58,9 +58,9 @@ const useFormField = () => {
   return {
     id,
     name: fieldContext.name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
+    formItemId: `€{id}-form-item`,
+    formDescriptionId: `€{id}-form-item-description`,
+    formMessageId: `€{id}-form-item-message`,
     ...fieldState,
   };
 };
@@ -114,8 +114,8 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       id={formItemId}
       aria-describedby={
         !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
+          ? `€{formDescriptionId}`
+          : `€{formDescriptionId} €{formMessageId}`
       }
       aria-invalid={!!error}
       {...props}
