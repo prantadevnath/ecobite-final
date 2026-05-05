@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,6 @@ import { SacredGeometryBackground } from "@/components/SacredGeometry";
 import { Leaf } from "lucide-react";
 
 export default function Login() {
-  const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,21 +17,23 @@ export default function Login() {
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: async (data) => {
       console.log("[Login] Success, data:", data);
-      await utils.auth.me.invalidate();
+      // Refetch the auth.me query to update the user state
+      const meData = await utils.auth.me.fetch();
+      console.log("[Login] Fetched auth.me data:", meData);
       toast.success(`Welcome back, ${data.user.name ?? "friend"}!`);
       const role = data.user.role;
       console.log("[Login] User role:", role);
-      // Use setTimeout to ensure the toast is shown before redirect
+      // Use window.location for a hard redirect to ensure page navigation
       setTimeout(() => {
         if (role === "admin") {
           console.log("[Login] Redirecting to /admin");
-          setLocation("/admin");
+          window.location.href = "/admin";
         } else if (role === "restaurant") {
           console.log("[Login] Redirecting to /restaurant");
-          setLocation("/restaurant");
+          window.location.href = "/restaurant";
         } else {
           console.log("[Login] Redirecting to /browse");
-          setLocation("/browse");
+          window.location.href = "/browse";
         }
       }, 500);
     },

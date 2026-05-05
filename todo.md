@@ -108,3 +108,14 @@
 - [x] Verified all 14 tests pass with the fix
 - [x] Session token now properly created and set as HTTP-only cookie
 - [x] Users now properly redirected to dashboard after login
+
+
+## Login Redirect Complete Fix (v3.3)
+- [x] Fixed missing user name in session token creation (was causing "Session payload missing required fields" error)
+- [x] Updated signup procedure to pass user.name to createSessionToken
+- [x] Updated login procedure to pass user.name to createSessionToken
+- [x] Changed Login page redirect from wouter's setLocation to window.location.href for hard redirect
+- [x] Added utils.auth.me.fetch() to ensure auth state updates before redirect
+- [x] Removed unused useLocation hook from Login page
+- [x] All 14 tests passing
+- [x] Login now properly redirects to /browse (customer), /restaurant, or /admin based on user role
