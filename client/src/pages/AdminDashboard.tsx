@@ -50,8 +50,8 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }} />
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(62% 0.14 65)" }}>
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Administration
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-3 gap-3 mb-8">
           {[
             { label: "Total Users", value: users?.length ?? "—", icon: Users, color: "oklch(55% 0.12 200)" },
-            { label: "Restaurants", value: restaurants?.length ?? "—", icon: Store, color: "oklch(62% 0.14 65)" },
+            { label: "Restaurants", value: restaurants?.length ?? "—", icon: Store, color: "oklch(52% 0.18 140)" },
             { label: "Pending Approval", value: pendingCount, icon: Clock, color: "oklch(65% 0.18 50)" },
           ].map(({ label, value, icon: Icon, color }) => (
             <div
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
                   {pendingCount > 0 && (
                     <span
                       className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full text-xs font-bold"
-                      style={{ background: "oklch(62% 0.14 65)", color: "white", fontSize: "0.6rem" }}
+                      style={{ background: "oklch(52% 0.18 140)", color: "white", fontSize: "0.6rem" }}
                     >
                       {pendingCount}
                     </span>
@@ -126,12 +126,12 @@ export default function AdminDashboard() {
           <div>
             {restaurantsLoading ? (
               <div className="flex justify-center py-12">
-                <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+                <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
               </div>
             ) : !restaurants || restaurants.length === 0 ? (
               <div className="rounded-2xl p-12 text-center"
                 style={{ background: "oklch(98.5% 0.012 85 / 0.8)", border: "1px solid oklch(72% 0.14 75 / 0.2)" }}>
-                <Store className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(72% 0.14 75)" }} />
+                <Store className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(60% 0.16 140)" }} />
                 <p className="text-lg font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>No restaurants yet</p>
               </div>
             ) : (
@@ -232,12 +232,12 @@ export default function AdminDashboard() {
           <div>
             {usersLoading ? (
               <div className="flex justify-center py-12">
-                <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+                <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
               </div>
             ) : !users || users.length === 0 ? (
               <div className="rounded-2xl p-12 text-center"
                 style={{ background: "oklch(98.5% 0.012 85 / 0.8)", border: "1px solid oklch(72% 0.14 75 / 0.2)" }}>
-                <Users className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(72% 0.14 75)" }} />
+                <Users className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(60% 0.16 140)" }} />
                 <p className="text-lg font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>No users yet</p>
               </div>
             ) : (

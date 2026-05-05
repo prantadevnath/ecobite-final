@@ -21,7 +21,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+        <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
       </div>
     );
   }
@@ -35,7 +35,7 @@ export default function Home() {
         <div className="flex items-center gap-2">
           <div
             className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }}
+            style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }}
           >
             <Leaf className="w-5 h-5 text-white" />
           </div>
@@ -53,7 +53,7 @@ export default function Home() {
             <Button
               size="sm"
               className="text-sm font-semibold"
-              style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }}
+              style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }}
             >
               Get Started
             </Button>
@@ -88,7 +88,7 @@ export default function Home() {
             <Button
               size="lg"
               className="gap-2 font-semibold px-8"
-              style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }}
+              style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }}
             >
               <ShoppingBag className="w-5 h-5" />
               Browse Boxes

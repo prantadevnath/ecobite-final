@@ -57,12 +57,11 @@ export function AppLayout({ children }: AppLayoutProps) {
           {/* Logo */}
           <Link href={user?.role === "admin" ? "/admin" : user?.role === "restaurant" ? "/restaurant" : "/browse"}>
             <div className="flex items-center gap-2 cursor-pointer">
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }}
-              >
-                <Leaf className="w-4 h-4 text-white" />
-              </div>
+              <img
+                src="/manus-storage/ecobite-logo_9f663873.png"
+                alt="EcoBite Logo"
+                className="w-8 h-8 object-contain"
+              />
               <span
                 className="text-xl font-bold text-foreground"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
@@ -112,7 +111,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               </Button>
             ) : (
               <Link href="/login">
-                <Button size="sm" style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }}>
+                <Button size="sm" style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }}>
                   Sign In
                 </Button>
               </Link>
@@ -133,7 +132,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         {menuOpen && (
           <div
             className="sm:hidden border-t px-4 py-3 space-y-1"
-            style={{ borderColor: "oklch(72% 0.14 75 / 0.2)", background: "oklch(98.5% 0.012 85)" }}
+            style={{ borderColor: "oklch(72% 0.14 75 / 0.2)", background: "oklch(99% 0.002 0)" }}
           >
             {links.map(({ href, label, icon: Icon }) => (
               <Link key={href} href={href}>

@@ -109,8 +109,8 @@ export default function RestaurantDashboard() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }} />
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(62% 0.14 65)" }}>
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Restaurant
             </p>
           </div>
@@ -147,7 +147,7 @@ export default function RestaurantDashboard() {
                 size="sm"
                 onClick={() => { setShowForm(true); setEditingId(null); setForm(emptyForm); }}
                 className="gap-1.5 font-semibold text-sm flex-shrink-0"
-                style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }}
+                style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }}
               >
                 <Plus className="w-4 h-4" />
                 New Box
@@ -160,7 +160,7 @@ export default function RestaurantDashboard() {
         {isPending && (
           <div className="rounded-xl p-4 mb-6 flex items-start gap-3"
             style={{ background: "oklch(72% 0.14 75 / 0.08)", border: "1px solid oklch(72% 0.14 75 / 0.25)" }}>
-            <Clock className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "oklch(62% 0.14 65)" }} />
+            <Clock className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "oklch(52% 0.18 140)" }} />
             <div>
               <p className="text-sm font-semibold text-foreground">Awaiting Admin Approval</p>
               <p className="text-xs text-muted-foreground mt-0.5">
@@ -241,7 +241,7 @@ export default function RestaurantDashboard() {
                   type="submit"
                   className="flex-1 font-semibold text-sm"
                   disabled={createMutation.isPending || updateMutation.isPending}
-                  style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }}
+                  style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }}
                 >
                   {(createMutation.isPending || updateMutation.isPending) ? (
                     <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Saving…</span>
@@ -258,12 +258,12 @@ export default function RestaurantDashboard() {
         {/* Boxes List */}
         {boxesLoading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
           </div>
         ) : !boxes || boxes.length === 0 ? (
           <div className="rounded-2xl p-12 text-center"
             style={{ background: "oklch(98.5% 0.012 85 / 0.8)", border: "1px solid oklch(72% 0.14 75 / 0.2)" }}>
-            <Package className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(72% 0.14 75)" }} />
+            <Package className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(60% 0.16 140)" }} />
             <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               No Boxes Yet
             </h3>

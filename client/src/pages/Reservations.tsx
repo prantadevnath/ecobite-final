@@ -57,7 +57,7 @@ function QrModal({
       <div
         className="w-full max-w-xs rounded-2xl p-6 relative"
         style={{
-          background: "oklch(98.5% 0.012 85)",
+          background: "oklch(99% 0.002 0)",
           border: "1px solid oklch(72% 0.14 75 / 0.3)",
           boxShadow: "0 20px 60px oklch(18% 0.06 240 / 0.3)",
         }}
@@ -82,7 +82,7 @@ function QrModal({
 
         {isLoading ? (
           <div className="flex justify-center py-8">
-            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
           </div>
         ) : data ? (
           <>
@@ -117,7 +117,7 @@ function QrModal({
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: "1.5rem",
                     fontWeight: 700,
-                    color: "oklch(18% 0.06 240)",
+                    color: "oklch(22% 0.04 240)",
                   }}
                 >
                   {digit}
@@ -165,9 +165,9 @@ export default function Reservations() {
           <div className="flex items-center gap-2 mb-1">
             <div
               className="w-1 h-6 rounded-full"
-              style={{ background: "linear-gradient(180deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }}
+              style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }}
             />
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(62% 0.14 65)" }}>
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               My Account
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function Reservations() {
 
         {isLoading && (
           <div className="flex justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
           </div>
         )}
 
@@ -193,7 +193,7 @@ export default function Reservations() {
               border: "1px solid oklch(72% 0.14 75 / 0.2)",
             }}
           >
-            <Package className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(72% 0.14 75)" }} />
+            <Package className="w-12 h-12 mx-auto mb-3" style={{ color: "oklch(60% 0.16 140)" }} />
             <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               No Reservations Yet
             </h3>
@@ -209,7 +209,7 @@ export default function Reservations() {
             <h2 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
               <span
                 className="w-2 h-2 rounded-full"
-                style={{ background: "oklch(62% 0.14 65)" }}
+                style={{ background: "oklch(52% 0.18 140)" }}
               />
               Active ({activeReservations.length})
             </h2>
@@ -224,12 +224,12 @@ export default function Reservations() {
                     boxShadow: "0 2px 12px oklch(72% 0.14 75 / 0.1)",
                   }}
                 >
-                  <div className="h-1" style={{ background: "linear-gradient(90deg, oklch(72% 0.14 75), oklch(60% 0.16 60))" }} />
+                  <div className="h-1" style={{ background: "linear-gradient(90deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }} />
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
-                          <Store className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "oklch(62% 0.14 65)" }} />
+                          <Store className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "oklch(52% 0.18 140)" }} />
                           <span className="text-xs" style={{ color: "oklch(52% 0.14 65)" }}>{restaurant.name}</span>
                         </div>
                         <h3 className="font-bold text-foreground text-lg leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
@@ -248,7 +248,7 @@ export default function Reservations() {
                         className="flex-1 gap-1.5 font-semibold text-xs"
                         onClick={() => setQrModalId(reservation.id)}
                         style={{
-                          background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))",
+                          background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))",
                           color: "white",
                           border: "none",
                         }}

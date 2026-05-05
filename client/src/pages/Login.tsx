@@ -46,13 +46,13 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
-            style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(60% 0.16 60))" }}>
+            style={{ background: "linear-gradient(135deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }}>
             <Leaf className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             EcoBite
           </h1>
-          <p className="text-sm mt-1" style={{ color: "oklch(62% 0.14 65)" }}>
+          <p className="text-sm mt-1" style={{ color: "oklch(52% 0.18 140)" }}>
             Rescue Food. Reduce Waste.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function Login() {
               className="w-full font-semibold text-sm tracking-wide"
               disabled={loginMutation.isPending}
               style={{
-                background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))",
+                background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))",
                 color: "white",
                 border: "none",
               }}

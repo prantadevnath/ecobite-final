@@ -80,7 +80,7 @@ function QrScanner({ onScan }: { onScan: (token: string) => void }) {
       <div
         className="rounded-xl overflow-hidden border-2"
         style={{
-          borderColor: scanning ? "oklch(62% 0.14 65)" : "oklch(88% 0.03 85)",
+          borderColor: scanning ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
           background: "oklch(10% 0.02 240)",
           minHeight: "260px",
           position: "relative",
@@ -91,7 +91,7 @@ function QrScanner({ onScan }: { onScan: (token: string) => void }) {
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center p-4">
             <div className="w-12 h-12 rounded-full flex items-center justify-center"
               style={{ background: "oklch(72% 0.14 75 / 0.15)" }}>
-              <Camera className="w-6 h-6" style={{ color: "oklch(62% 0.14 65)" }} />
+              <Camera className="w-6 h-6" style={{ color: "oklch(52% 0.18 140)" }} />
             </div>
             <div>
               <p className="text-sm font-medium text-white">Camera Scanner</p>
@@ -127,7 +127,7 @@ function QrScanner({ onScan }: { onScan: (token: string) => void }) {
         style={
           scanning
             ? { background: "oklch(58% 0.22 25 / 0.15)", color: "oklch(45% 0.22 25)", border: "1px solid oklch(58% 0.22 25 / 0.3)" }
-            : { background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))", color: "white", border: "none" }
+            : { background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))", color: "white", border: "none" }
         }
       >
         {scanning ? (
@@ -224,8 +224,8 @@ export default function RestaurantRedeem() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }} />
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(62% 0.14 65)" }}>
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Restaurant
             </p>
           </div>
@@ -260,12 +260,12 @@ export default function RestaurantRedeem() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <Package className="w-4 h-4" style={{ color: "oklch(62% 0.14 65)" }} />
+                <Package className="w-4 h-4" style={{ color: "oklch(52% 0.18 140)" }} />
                 <span className="font-medium text-foreground">{result.box.title}</span>
                 <span className="text-muted-foreground">— ${parseFloat(result.box.price).toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4" style={{ color: "oklch(62% 0.14 65)" }} />
+                <User className="w-4 h-4" style={{ color: "oklch(52% 0.18 140)" }} />
                 <span className="text-foreground">{result.customer.name ?? "Customer"}</span>
                 {result.customer.email && (
                   <span className="text-muted-foreground text-xs">({result.customer.email})</span>
@@ -336,8 +336,8 @@ export default function RestaurantRedeem() {
                   className="w-11 h-14 text-center rounded-xl border-2 text-xl font-bold outline-none transition-all"
                   style={{
                     background: digit ? "oklch(72% 0.14 75 / 0.1)" : "oklch(94% 0.025 85)",
-                    borderColor: digit ? "oklch(62% 0.14 65)" : "oklch(88% 0.03 85)",
-                    color: "oklch(18% 0.06 240)",
+                    borderColor: digit ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
+                    color: "oklch(22% 0.04 240)",
                     fontFamily: "'Cormorant Garamond', serif",
                   }}
                 />
@@ -349,7 +349,7 @@ export default function RestaurantRedeem() {
               disabled={!isPinComplete || redeemByPinMutation.isPending}
               onClick={handlePinSubmit}
               style={{
-                background: isPinComplete ? "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" : undefined,
+                background: isPinComplete ? "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" : undefined,
                 color: isPinComplete ? "white" : undefined,
                 border: "none",
               }}
@@ -404,7 +404,7 @@ export default function RestaurantRedeem() {
                 disabled={!qrInput.trim() || redeemByQrMutation.isPending}
                 onClick={handleQrManualSubmit}
                 style={{
-                  background: qrInput.trim() ? "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" : undefined,
+                  background: qrInput.trim() ? "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" : undefined,
                   color: qrInput.trim() ? "white" : undefined,
                   border: "none",
                 }}

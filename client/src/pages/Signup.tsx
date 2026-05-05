@@ -63,13 +63,13 @@ export default function Signup() {
         {/* Logo */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-3"
-            style={{ background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(60% 0.16 60))" }}>
+            style={{ background: "linear-gradient(135deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }}>
             <Leaf className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             Join EcoBite
           </h1>
-          <p className="text-sm mt-1" style={{ color: "oklch(62% 0.14 65)" }}>
+          <p className="text-sm mt-1" style={{ color: "oklch(52% 0.18 140)" }}>
             Create your account
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function Signup() {
                   onClick={() => setRole(r)}
                   className="flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all text-sm font-medium"
                   style={{
-                    borderColor: role === r ? "oklch(62% 0.14 65)" : "oklch(88% 0.03 85)",
+                    borderColor: role === r ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
                     background: role === r ? "oklch(72% 0.14 75 / 0.12)" : "transparent",
                     color: role === r ? "oklch(42% 0.14 65)" : "oklch(52% 0.03 240)",
                   }}
@@ -184,7 +184,7 @@ export default function Signup() {
               className="w-full font-semibold text-sm tracking-wide mt-1"
               disabled={signupMutation.isPending}
               style={{
-                background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))",
+                background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))",
                 color: "white",
                 border: "none",
               }}

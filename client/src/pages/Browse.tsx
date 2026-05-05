@@ -55,9 +55,9 @@ export default function Browse() {
           <div className="flex items-center gap-2 mb-1">
             <div
               className="w-1 h-6 rounded-full"
-              style={{ background: "linear-gradient(180deg, oklch(72% 0.14 75), oklch(58% 0.16 60))" }}
+              style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }}
             />
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(62% 0.14 65)" }}>
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Today's Selection
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function Browse() {
         {/* Loading */}
         {isLoading && (
           <div className="flex flex-col items-center justify-center py-24 gap-3">
-            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(62% 0.14 65)" }} />
+            <Loader2 className="w-8 h-8 animate-spin" style={{ color: "oklch(52% 0.18 140)" }} />
             <p className="text-sm text-muted-foreground">Loading available boxes…</p>
           </div>
         )}
@@ -93,7 +93,7 @@ export default function Browse() {
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               style={{ background: "oklch(72% 0.14 75 / 0.12)" }}
             >
-              <Package className="w-8 h-8" style={{ color: "oklch(62% 0.14 65)" }} />
+              <Package className="w-8 h-8" style={{ color: "oklch(52% 0.18 140)" }} />
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               No Boxes Available
@@ -120,13 +120,13 @@ export default function Browse() {
                 {/* Card top accent */}
                 <div
                   className="h-1.5 w-full"
-                  style={{ background: "linear-gradient(90deg, oklch(72% 0.14 75), oklch(60% 0.16 60))" }}
+                  style={{ background: "linear-gradient(90deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }}
                 />
 
                 <div className="p-5 flex flex-col flex-1">
                   {/* Restaurant badge */}
                   <div className="flex items-center gap-1.5 mb-3">
-                    <Store className="w-3.5 h-3.5" style={{ color: "oklch(62% 0.14 65)" }} />
+                    <Store className="w-3.5 h-3.5" style={{ color: "oklch(52% 0.18 140)" }} />
                     <span className="text-xs font-medium" style={{ color: "oklch(52% 0.14 65)" }}>
                       {restaurant.name}
                     </span>
@@ -173,7 +173,7 @@ export default function Browse() {
                     style={
                       box.quantityAvailable > 0
                         ? {
-                            background: "linear-gradient(135deg, oklch(72% 0.14 75), oklch(58% 0.16 60))",
+                            background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))",
                             color: "white",
                             border: "none",
                           }

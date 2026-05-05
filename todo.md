@@ -51,3 +51,12 @@
 - [x] Cancel reservation (quantity increment) test
 - [x] Admin approve restaurant test
 - [x] Auth logout test
+
+## Rebranding (v2.0)
+- [x] Extract green leaf logo from user image
+- [x] Upload logo to webdev storage
+- [x] Update CSS theme from gold/cream to green/white
+- [x] Replace all component color references (gold → green)
+- [x] Update AppLayout to use new logo image
+- [x] Replace sacred geometry background with clean white
+- [x] Test all functionality with new theme
