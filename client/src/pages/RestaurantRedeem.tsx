@@ -80,7 +80,7 @@ function QrScanner({ onScan }: { onScan: (token: string) => void }) {
       <div
         className="rounded-xl overflow-hidden border-2"
         style={{
-          borderColor: scanning ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
+          borderColor: scanning ? "oklch(52% 0.18 140)" : "oklch(92% 0.01 140)",
           background: "oklch(10% 0.02 240)",
           minHeight: "260px",
           position: "relative",
@@ -224,7 +224,7 @@ export default function RestaurantRedeem() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }} />
             <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Restaurant
             </p>
@@ -286,7 +286,7 @@ export default function RestaurantRedeem() {
         {/* Tab Switcher */}
         <div
           className="flex rounded-xl p-1 mb-6"
-          style={{ background: "oklch(94% 0.025 85)", border: "1px solid oklch(88% 0.03 85)" }}
+          style={{ background: "oklch(96% 0.015 140)", border: "1px solid oklch(92% 0.01 140)" }}
         >
           {(["pin", "qr"] as const).map((tab) => (
             <button
@@ -335,8 +335,8 @@ export default function RestaurantRedeem() {
                   onKeyDown={(e) => handlePinKeyDown(i, e)}
                   className="w-11 h-14 text-center rounded-xl border-2 text-xl font-bold outline-none transition-all"
                   style={{
-                    background: digit ? "oklch(72% 0.14 75 / 0.1)" : "oklch(94% 0.025 85)",
-                    borderColor: digit ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
+                    background: digit ? "oklch(60% 0.16 140 / 0.1)" : "oklch(96% 0.015 140)",
+                    borderColor: digit ? "oklch(52% 0.18 140)" : "oklch(92% 0.01 140)",
                     color: "oklch(22% 0.04 240)",
                     fontFamily: "'Cormorant Garamond', serif",
                   }}

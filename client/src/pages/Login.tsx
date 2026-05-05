@@ -45,10 +45,11 @@ export default function Login() {
       <div className="relative z-10 w-full max-w-sm mx-4">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
-            style={{ background: "linear-gradient(135deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }}>
-            <Leaf className="w-8 h-8 text-white" />
-          </div>
+          <img
+            src="/manus-storage/ecobite-logo_9f663873.png"
+            alt="EcoBite Logo"
+            className="w-16 h-16 mx-auto mb-4 object-contain"
+          />
           <h1 className="text-4xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             EcoBite
           </h1>
@@ -60,8 +61,8 @@ export default function Login() {
         {/* Card */}
         <div className="rounded-2xl p-8 shadow-lg"
           style={{
-            background: "oklch(98.5% 0.012 85 / 0.92)",
-            border: "1px solid oklch(72% 0.14 75 / 0.25)",
+            background: "oklch(99% 0.002 0 / 0.92)",
+            border: "1px solid oklch(92% 0.01 140 / 0.25)",
             backdropFilter: "blur(12px)",
           }}>
           <h2 className="text-2xl font-semibold text-foreground mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>

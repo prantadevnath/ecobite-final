@@ -112,7 +112,7 @@ function QrModal({
                   key={i}
                   className="w-10 h-12 flex items-center justify-center rounded-lg border-2"
                   style={{
-                    background: "oklch(94% 0.025 85)",
+                    background: "oklch(96% 0.015 140)",
                     borderColor: "oklch(72% 0.14 75 / 0.4)",
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: "1.5rem",
@@ -165,7 +165,7 @@ export default function Reservations() {
           <div className="flex items-center gap-2 mb-1">
             <div
               className="w-1 h-6 rounded-full"
-              style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }}
+              style={{ background: "linear-gradient(180deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }}
             />
             <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               My Account
@@ -221,10 +221,10 @@ export default function Reservations() {
                   style={{
                     background: "oklch(98.5% 0.012 85 / 0.92)",
                     border: "1.5px solid oklch(72% 0.14 75 / 0.3)",
-                    boxShadow: "0 2px 12px oklch(72% 0.14 75 / 0.1)",
+                    boxShadow: "0 2px 12px oklch(60% 0.16 140 / 0.1)",
                   }}
                 >
-                  <div className="h-1" style={{ background: "linear-gradient(90deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }} />
+                  <div className="h-1" style={{ background: "linear-gradient(90deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }} />
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
@@ -289,7 +289,7 @@ export default function Reservations() {
                   className="rounded-xl p-4"
                   style={{
                     background: "oklch(98.5% 0.012 85 / 0.7)",
-                    border: "1px solid oklch(88% 0.03 85)",
+                    border: "1px solid oklch(92% 0.01 140)",
                   }}
                 >
                   <div className="flex items-center justify-between gap-3">

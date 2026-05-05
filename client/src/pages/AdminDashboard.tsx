@@ -50,7 +50,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }} />
             <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Administration
             </p>
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
         {/* Tab Switcher */}
         <div
           className="flex rounded-xl p-1 mb-6 w-fit"
-          style={{ background: "oklch(94% 0.025 85)", border: "1px solid oklch(88% 0.03 85)" }}
+          style={{ background: "oklch(96% 0.015 140)", border: "1px solid oklch(92% 0.01 140)" }}
         >
           {(["restaurants", "users"] as TabType[]).map((tab) => (
             <button
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
                     key={restaurant.id}
                     className="grid grid-cols-12 gap-4 px-5 py-4 items-center"
                     style={{
-                      borderBottom: i < restaurants.length - 1 ? "1px solid oklch(88% 0.03 85)" : "none",
+                      borderBottom: i < restaurants.length - 1 ? "1px solid oklch(92% 0.01 140)" : "none",
                     }}
                   >
                     <div className="col-span-4">
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
                     <div className="col-span-2">
                       {restaurant.status === "pending" && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border"
-                          style={{ background: "oklch(72% 0.14 75 / 0.1)", color: "oklch(52% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }}>
+                          style={{ background: "oklch(60% 0.16 140 / 0.1)", color: "oklch(52% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }}>
                           <Clock className="w-3 h-3" /> Pending
                         </span>
                       )}
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
                   <div
                     key={user.id}
                     className="grid grid-cols-12 gap-4 px-5 py-3.5 items-center"
-                    style={{ borderBottom: i < users.length - 1 ? "1px solid oklch(88% 0.03 85)" : "none" }}
+                    style={{ borderBottom: i < users.length - 1 ? "1px solid oklch(92% 0.01 140)" : "none" }}
                   >
                     <div className="col-span-4">
                       <p className="text-sm font-medium text-foreground">{user.name ?? "—"}</p>
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
                           user.role === "admin"
                             ? { background: "oklch(55% 0.12 200 / 0.1)", color: "oklch(35% 0.12 200)", borderColor: "oklch(55% 0.12 200 / 0.3)" }
                             : user.role === "restaurant"
-                            ? { background: "oklch(72% 0.14 75 / 0.1)", color: "oklch(42% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }
+                            ? { background: "oklch(60% 0.16 140 / 0.1)", color: "oklch(42% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }
                             : { background: "oklch(70% 0.05 240 / 0.1)", color: "oklch(45% 0.05 240)", borderColor: "oklch(70% 0.05 240 / 0.3)" }
                         }
                       >

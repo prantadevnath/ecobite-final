@@ -33,12 +33,11 @@ export default function Home() {
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-2">
-          <div
-            className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }}
-          >
-            <Leaf className="w-5 h-5 text-white" />
-          </div>
+          <img
+            src="/manus-storage/ecobite-logo_9f663873.png"
+            alt="EcoBite Logo"
+            className="w-9 h-9 object-contain"
+          />
           <span className="text-2xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             EcoBite
           </span>

@@ -62,10 +62,11 @@ export default function Signup() {
       <div className="relative z-10 w-full max-w-sm mx-4">
         {/* Logo */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-3"
-            style={{ background: "linear-gradient(135deg, oklch(60% 0.16 140), oklch(60% 0.16 60))" }}>
-            <Leaf className="w-7 h-7 text-white" />
-          </div>
+          <img
+            src="/manus-storage/ecobite-logo_9f663873.png"
+            alt="EcoBite Logo"
+            className="w-14 h-14 mx-auto mb-3 object-contain"
+          />
           <h1 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
             Join EcoBite
           </h1>
@@ -77,8 +78,8 @@ export default function Signup() {
         {/* Card */}
         <div className="rounded-2xl p-7 shadow-lg"
           style={{
-            background: "oklch(98.5% 0.012 85 / 0.92)",
-            border: "1px solid oklch(72% 0.14 75 / 0.25)",
+            background: "oklch(99% 0.002 0 / 0.92)",
+            border: "1px solid oklch(92% 0.01 140 / 0.25)",
             backdropFilter: "blur(12px)",
           }}>
 
@@ -93,7 +94,7 @@ export default function Signup() {
                   onClick={() => setRole(r)}
                   className="flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all text-sm font-medium"
                   style={{
-                    borderColor: role === r ? "oklch(52% 0.18 140)" : "oklch(88% 0.03 85)",
+                    borderColor: role === r ? "oklch(52% 0.18 140)" : "oklch(92% 0.01 140)",
                     background: role === r ? "oklch(72% 0.14 75 / 0.12)" : "transparent",
                     color: role === r ? "oklch(42% 0.14 65)" : "oklch(52% 0.03 240)",
                   }}

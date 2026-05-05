@@ -109,7 +109,7 @@ export default function RestaurantDashboard() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(60% 0.16 140), oklch(58% 0.16 60))" }} />
+            <div className="w-1 h-6 rounded-full" style={{ background: "linear-gradient(180deg, oklch(52% 0.18 140), oklch(45% 0.16 140))" }} />
             <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "oklch(52% 0.18 140)" }}>
               Restaurant
             </p>
@@ -123,7 +123,7 @@ export default function RestaurantDashboard() {
                 <div className="flex items-center gap-1.5 mt-1">
                   {isPending && (
                     <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border"
-                      style={{ background: "oklch(72% 0.14 75 / 0.1)", color: "oklch(52% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }}>
+                      style={{ background: "oklch(60% 0.16 140 / 0.1)", color: "oklch(52% 0.14 65)", borderColor: "oklch(72% 0.14 75 / 0.3)" }}>
                       <Clock className="w-3 h-3" /> Pending Approval
                     </span>
                   )}
