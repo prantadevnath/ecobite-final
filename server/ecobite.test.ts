@@ -71,8 +71,8 @@ vi.mock("@shared/const", () => ({
 vi.mock("./_core/cookies", () => ({
   getSessionCookieOptions: vi.fn().mockReturnValue({
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: false,
+    sameSite: "lax",
     path: "/",
   }),
 }));
