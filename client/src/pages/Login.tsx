@@ -18,24 +18,15 @@ export default function Login() {
     onSuccess: async (data) => {
       console.log("[Login] Success, data:", data);
       // Refetch the auth.me query to update the user state
-      const meData = await utils.auth.me.fetch();
-      console.log("[Login] Fetched auth.me data:", meData);
       toast.success(`Welcome back, ${data.user.name ?? "friend"}!`);
       const role = data.user.role;
-      console.log("[Login] User role:", role);
-      // Use window.location for a hard redirect to ensure page navigation
-      setTimeout(() => {
-        if (role === "admin") {
-          console.log("[Login] Redirecting to /admin");
-          window.location.href = "/admin";
-        } else if (role === "restaurant") {
-          console.log("[Login] Redirecting to /restaurant");
-          window.location.href = "/restaurant";
-        } else {
-          console.log("[Login] Redirecting to /browse");
-          window.location.href = "/browse";
-        }
-      }, 500);
+      if (role === "admin") {
+        window.location.replace("/admin");
+      } else if (role === "restaurant") {
+        window.location.replace("/restaurant");
+      } else {
+        window.location.replace("/browse");
+      }
     },
     onError: (err) => {
       console.error("[Login] Error:", err);
@@ -61,7 +52,7 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <img
-            src="/manus-storage/ecobite-logo_9f663873.png"
+            src="/ecobite-logo_9f663873.png"
             alt="EcoBite Logo"
             className="w-16 h-16 mx-auto mb-4 object-contain"
           />

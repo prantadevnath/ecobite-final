@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import * as path from "path";
 import type { Express } from "express";
 import { ENV } from "./env";
 
@@ -9,8 +11,21 @@ export function registerStorageProxy(app: Express) {
       return;
     }
 
+    const safeKey = path.normalize(key).replace(/^(?:\.\.[\/\\])+/g, "");
+    const localPublicPath = path.resolve(__dirname, "../../client/public", safeKey);
+
     if (!ENV.forgeApiUrl || !ENV.forgeApiKey) {
-      res.status(500).send("Storage proxy not configured");
+      if (fs.existsSync(localPublicPath)) {
+        res.sendFile(localPublicPath, err => {
+          if (err) {
+            console.error("[StorageProxy] failed to send local file:", err);
+            res.status(500).send("Internal server error");
+          }
+        });
+        return;
+      }
+
+      res.status(404).send("Storage proxy not configured");
       return;
     }
 

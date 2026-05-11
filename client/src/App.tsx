@@ -26,7 +26,13 @@ function ProtectedRoute({
   allowedRoles?: string[];
 }) {
   const [, setLocation] = useLocation();
-  const { data: user, isLoading } = trpc.auth.me.useQuery();
+  const { data: user, isLoading } = trpc.auth.me.useQuery(undefined, {
+    refetchOnMount: "always",
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    retry: false,
+  });
 
   useEffect(() => {
     if (!isLoading) {
@@ -57,10 +63,10 @@ function Router() {
 
       {/* Customer routes */}
       <Route path="/browse">
-        {() => <ProtectedRoute component={Browse} allowedRoles={["customer", "admin"]} />}
+        {() => <ProtectedRoute component={Browse} allowedRoles={["customer", "user", "admin"]} />}
       </Route>
       <Route path="/reservations">
-        {() => <ProtectedRoute component={Reservations} allowedRoles={["customer"]} />}
+        {() => <ProtectedRoute component={Reservations} allowedRoles={["customer", "user"]} />}
       </Route>
 
       {/* Restaurant routes */}

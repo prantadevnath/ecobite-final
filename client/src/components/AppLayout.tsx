@@ -58,7 +58,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <Link href={user?.role === "admin" ? "/admin" : user?.role === "restaurant" ? "/restaurant" : "/browse"}>
             <div className="flex items-center gap-2 cursor-pointer">
               <img
-                src="/manus-storage/ecobite-logo_9f663873.png"
+                src="/ecobite-logo_9f663873.png"
                 alt="EcoBite Logo"
                 className="w-8 h-8 object-contain"
               />

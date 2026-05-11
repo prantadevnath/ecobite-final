@@ -166,13 +166,15 @@ class SDKServer {
    */
   async createSessionToken(
     openId: string,
-    options: { expiresInMs?: number; name?: string } = {}
+    options: { expiresInMs?: number; name?: string; appId?: string } = {}
   ): Promise<string> {
+    const appId = options.appId ?? ENV.appId ?? "local";
+
     return this.signSession(
       {
         openId,
-        appId: ENV.appId,
-        name: options.name || "",
+        appId,
+        name: options.name || "User",
       },
       options
     );
@@ -201,7 +203,6 @@ class SDKServer {
     cookieValue: string | undefined | null
   ): Promise<{ openId: string; appId: string; name: string } | null> {
     if (!cookieValue) {
-      console.warn("[Auth] Missing session cookie");
       return null;
     }
 
@@ -217,7 +218,6 @@ class SDKServer {
         !isNonEmptyString(appId) ||
         !isNonEmptyString(name)
       ) {
-        console.warn("[Auth] Session payload missing required fields");
         return null;
       }
 
@@ -226,8 +226,7 @@ class SDKServer {
         appId,
         name,
       };
-    } catch (error) {
-      console.warn("[Auth] Session verification failed", String(error));
+    } catch (_error) {
       return null;
     }
   }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,6 @@ import { Leaf, ShoppingBag, Store } from "lucide-react";
 type Role = "customer" | "restaurant";
 
 export default function Signup() {
-  const [, setLocation] = useLocation();
   const [role, setRole] = useState<Role>("customer");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,12 +22,11 @@ export default function Signup() {
 
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess: async (data) => {
-      await utils.auth.me.invalidate();
       toast.success("Account created! Welcome to EcoBite.");
       const r = data.user.role;
-      if (r === "admin") setLocation("/admin");
-      else if (r === "restaurant") setLocation("/restaurant");
-      else setLocation("/browse");
+      if (r === "admin") window.location.replace("/admin");
+      else if (r === "restaurant") window.location.replace("/restaurant");
+      else window.location.replace("/browse");
     },
     onError: (err) => {
       toast.error(err.message || "Signup failed");
@@ -63,7 +61,7 @@ export default function Signup() {
         {/* Logo */}
         <div className="text-center mb-6">
           <img
-            src="/manus-storage/ecobite-logo_9f663873.png"
+            src="/ecobite-logo_9f663873.png"
             alt="EcoBite Logo"
             className="w-14 h-14 mx-auto mb-3 object-contain"
           />

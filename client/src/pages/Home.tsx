@@ -34,7 +34,7 @@ export default function Home() {
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <img
-            src="/manus-storage/ecobite-logo_9f663873.png"
+            src="/ecobite-logo_9f663873.png"
             alt="EcoBite Logo"
             className="w-9 h-9 object-contain"
           />
