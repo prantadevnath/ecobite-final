@@ -13,7 +13,7 @@ import {
 // 1. Define Enums first in Postgres
 export const roleEnum = pgEnum("role", ["user", "admin", "customer", "restaurant"]);
 export const statusEnum = pgEnum("status", ["pending", "approved", "rejected"]);
-export const reservationStatusEnum = pgEnum("status", ["active", "picked_up", "cancelled"]);
+export const reservationStatusEnum = pgEnum("reservation_status", ["active", "picked_up", "cancelled"]);
 
 // 2. Tables
 export const users = pgTable("users", {
