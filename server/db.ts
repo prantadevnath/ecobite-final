@@ -2,16 +2,17 @@ import { eq, and, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 import {
-  InsertUser,
   users,
   restaurants,
   boxes,
   reservations,
-  InsertRestaurant,
-  InsertBox,
-  InsertReservation,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+
+type InsertUser = typeof users.$inferInsert;
+type InsertRestaurant = typeof restaurants.$inferInsert;
+type InsertBox = typeof boxes.$inferInsert;
+type InsertReservation = typeof reservations.$inferInsert;
 
 let client: Client | null = null;
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -66,7 +67,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   if (!values.lastSignedIn) values.lastSignedIn = new Date();
   if (Object.keys(updateSet).length === 0) updateSet.lastSignedIn = new Date();
 
-  await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+  await db.insert(users).values(values).onConflictDoUpdate({ target: users.openId, set: updateSet });
 }
 
 export async function getUserByOpenId(openId: string) {
@@ -197,8 +198,8 @@ export async function decrementBoxQty(id: number) {
   if (!db) throw new Error("DB unavailable");
   await db
     .update(boxes)
-    .set({ quantityAvailable: sql`quantityAvailable - 1` })
-    .where(and(eq(boxes.id, id), sql`quantityAvailable > 0`));
+    .set({ quantityAvailable: sql`"quantityAvailable" - 1` })
+    .where(and(eq(boxes.id, id), sql`"quantityAvailable" > 0`));
 }
 
 export async function incrementBoxQty(id: number) {
@@ -206,7 +207,7 @@ export async function incrementBoxQty(id: number) {
   if (!db) throw new Error("DB unavailable");
   await db
     .update(boxes)
-    .set({ quantityAvailable: sql`quantityAvailable + 1` })
+    .set({ quantityAvailable: sql`"quantityAvailable" + 1` })
     .where(eq(boxes.id, id));
 }
 
@@ -244,7 +245,6 @@ export async function getReservationById(id: number) {
 export async function getReservationByPin(pin: string, restaurantId: number) {
   const db = await getDb();
   if (!db) return undefined;
-  // Find active reservation with this PIN for boxes belonging to this restaurant
   const result = await db
     .select({ reservation: reservations, box: boxes, customer: users })
     .from(reservations)
@@ -310,8 +310,8 @@ export async function decrementBoxQtyByAmount(id: number, amount: number) {
   if (!db) throw new Error("DB unavailable");
   await db
     .update(boxes)
-    .set({ quantityAvailable: sql`quantityAvailable - ${amount}` })
-    .where(and(eq(boxes.id, id), sql`quantityAvailable >= ${amount}`));
+    .set({ quantityAvailable: sql`"quantityAvailable" - ${amount}` })
+    .where(and(eq(boxes.id, id), sql`"quantityAvailable" >= ${amount}`));
 }
 
 export async function incrementBoxQtyByAmount(id: number, amount: number) {
@@ -319,6 +319,6 @@ export async function incrementBoxQtyByAmount(id: number, amount: number) {
   if (!db) throw new Error("DB unavailable");
   await db
     .update(boxes)
-    .set({ quantityAvailable: sql`quantityAvailable + ${amount}` })
+    .set({ quantityAvailable: sql`"quantityAvailable" + ${amount}` })
     .where(eq(boxes.id, id));
 }
